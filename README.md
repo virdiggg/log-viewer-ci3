@@ -1,4 +1,4 @@
-# LLog Viewer for CodeIgniter 3
+# Log Viewer for CodeIgniter 3
 
 <img src="https://img.shields.io/packagist/php-v/virdiggg/log-viewer-ci3" /> <img src="https://img.shields.io/badge/codeigniter--version-3-green" /> <img src="https://img.shields.io/github/license/virdiggg/log-viewer-ci3" />
 
