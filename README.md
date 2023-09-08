@@ -1,8 +1,10 @@
-# Log Viewer for CodeIgniter 3
+# A Simple Log Viewer for CodeIgniter 3
 
 <img src="https://img.shields.io/packagist/php-v/virdiggg/log-viewer-ci3" /> <img src="https://img.shields.io/badge/codeigniter--version-3-green" /> <img src="https://img.shields.io/github/license/virdiggg/log-viewer-ci3" />
 
-## HOW TO USE
+## Inspired from [opcodesio/log-viewer](https://github.com/opcodesio/log-viewer) for laravel.
+
+### HOW TO USE
 - Install this library with composer
 ```
 composer require virdiggg/log-viewer-ci3
