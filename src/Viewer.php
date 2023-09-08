@@ -2,8 +2,6 @@
 
 namespace Virdiggg\LogViewerCI3;
 
-defined('BASEPATH') or exit('No direct script access allowed');
-
 defined('APPPATH') or define('APPPATH', '..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'application'.DIRECTORY_SEPARATOR);
 defined('LOG_PATH') or define('LOG_PATH', APPPATH.'logs');
 
