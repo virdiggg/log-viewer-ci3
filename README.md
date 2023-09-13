@@ -19,7 +19,7 @@ composer require virdiggg/log-viewer-ci3
 -$config['log_file_extension'] = '';
 +$config['log_file_extension'] = 'log';
 ```
-- Create a controller to use this library. Example is `application/App.php`. This example is in JSON format; you can modify it accordingly.
+- Create a controller to use this library. Example is `application/controller/App.php`. This example is in JSON format; you can modify it accordingly.
 ```
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
