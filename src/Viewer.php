@@ -26,7 +26,7 @@ defined('LOG_PATH') or define('LOG_PATH', APPPATH.'logs');
  * Maiw tuwu: virdigunawann@gmail.com
  */
 
-class Log_viewer
+class Viewer
 {
     /**
      * Path file logs
