@@ -28,6 +28,13 @@ class LogViewer
      */
     private $ext = 'log';
 
+    /**
+     * Default regex for log error codeigniter 3
+     * 
+     * @return string
+     */
+    const REGEX = '/^([A-Z]+)\s*\-\s*([\-\d]+\s+[\:\d]+)\s*\-\->\s*(.+)$/';
+
     public function __construct()
     {
     }
@@ -39,25 +46,24 @@ class LogViewer
      * 
      * @return array
      */
-    public function parseLogs($array)
+    public function parseLogs($file)
     {
+        $arrLogString = $this->prepareLogs($file);
+
         $no = 1;
         $logs = [];
-        foreach ($array as $file) {
-            $logsTemp = file_get_contents($file);
-            $pieces = explode('ERROR - ', $logsTemp);
+        foreach ($arrLogString as $logString) {
+            preg_match(LogViewer::REGEX, $logString, $matches);
 
-            foreach ($pieces as $piece) {
-                if (!empty($piece) && strpos($piece, "<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>") === false) {
-                    $date = $this->before($piece, ' --> ');
-
-                    $logs[] = [
-                        'no' => $no++,
-                        'date' => $date,
-                        'data' => strip_tags($this->after($piece, ' --> ')),
-                    ];
-                }
-            }
+            $level = $matches[1];
+            $date = $matches[2];
+            $message = $matches[3];
+            $logs[] = [
+                'no' => $no++,
+                'date' => $date,
+                'level' => $level,
+                'data' => $message,
+            ];
         }
 
         return $logs;
@@ -71,7 +77,24 @@ class LogViewer
     public function getLogs()
     {
         $glob = array_filter(glob($this->getName()), 'is_file');
-        return count((array) $glob) > 0 ? $this->parseLogs($glob) : [];
+        return count((array) $glob) > 0 ? $this->parseLogs($glob[0]) : [];
+    }
+
+    /**
+     * Create array log string
+     * 
+     * @param string $path
+     * 
+     * @return array
+     */
+    public function prepareLogs($path) {
+        $arrLogString = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if ($this->getExt() === 'php') {
+            unset($arrLogString[0]);
+            $arrLogString = array_values($arrLogString);
+        }
+
+        return $arrLogString;
     }
 
     /**
@@ -138,35 +161,5 @@ class LogViewer
     public function getExt()
     {
         return $this->ext;
-    }
-
-    /**
-     * Get the portion of a string before the first occurrence of a given value.
-     *
-     * @param  string  $subject
-     * @param  string  $search
-     * @return string
-     */
-    private function before($subject, $search)
-    {
-        if ($search === '') {
-            return $subject;
-        }
-
-        $result = strstr($subject, (string) $search, true);
-
-        return $result === false ? $subject : $result;
-    }
-
-    /**
-     * Return the remainder of a string after the first occurrence of a given value.
-     *
-     * @param  string  $subject
-     * @param  string  $search
-     * @return string
-     */
-    private function after($subject, $search)
-    {
-        return $search === '' ? $subject : array_reverse(explode($search, $subject, 2))[0];
     }
 }
