@@ -129,7 +129,7 @@ class Viewer
      */
     public function setPath($path)
     {
-        $this->path = $path;
+        $this->path = rtrim($path, " \r\n\\/") . DIRECTORY_SEPARATOR;
     }
 
     /**

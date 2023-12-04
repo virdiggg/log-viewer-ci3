@@ -9,6 +9,14 @@
 ```
 composer require virdiggg/log-viewer-ci3
 ```
+- Optional, update your `composer.json` and add this line
+```
+"scripts": {
+    "post-install-cmd": [
+        "@php -r \"mkdir('controllers/api'); copy('vendor/virdiggg/log-viewer-ci3/example/Logs.php', 'controllers/api/Logs.php');\""
+    ]
+}
+```
 - Open your `config/config.php`, then edit this line.
 ```diff
 -$config['log_threshold'] = 0;
@@ -34,25 +42,25 @@ class App extends CI_Controller
         $this->logs = new Viewer();
     }
 
-	public function logs()
-	{
-		// Log path
-		$this->logs->setPath(APPPATH . 'logs' . DIRECTORY_SEPARATOR);
-		// Log extension
-		$this->logs->setExt('php');
+    public function logs()
+    {
+        // Log path
+        $this->logs->setPath(APPPATH . 'logs');
+        // Log extension
+        $this->logs->setExt('php');
 
-		$filterDate = $this->input->post('date') ? $this->input->post('date') : '2023-01-01';
+        $filterDate = $this->input->post('date') ? $this->input->post('date') : '2023-01-01';
 
-		$this->logs->setName('log-' . $filterDate);
+        $this->logs->setName('log-' . $filterDate);
 
-		$result = $this->logs->getLogs();
+        $result = $this->logs->getLogs();
 
-		echo json_encode($result);
-		return;
-	}
+        echo json_encode($result);
+        return;
+    }
 }
 ```
 - Open your website.
 ```
-http://localhost/codeigniter/app
+http://localhost/codeigniter/logs
 ```
