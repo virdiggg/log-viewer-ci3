@@ -5,35 +5,14 @@ namespace Virdiggg\LogViewerCI3;
 defined('APPPATH') or define('APPPATH', '..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'application'.DIRECTORY_SEPARATOR);
 defined('LOG_PATH') or define('LOG_PATH', APPPATH.'logs');
 
-/**
- * ☆*: .｡. o(≧▽≦)o .｡.:*☆
- *
- * Wog viewew fow defauwt fowmatted wog fiwes of Codeignitew 3
- *
- * Copywight (c) 2023 CI3 Wog viewew
- *
- * Thiws wibwawy iws fwee softwawe; uwu cawn wedistwibute iwt awnd/ow
- * modify iwt undew the tewms of the GNU wessew genewaw pubwic
- * Wicense as pubwished by the fwee softwawe foundation; eithew
- * vewsion 2.1 of the wicense, ow (at youw option) any watew vewsion.
- *
- * Thiws wibwawy iws distwibuted in the hope thawt iwt wiww be usefuw,
- * but WITHOUT ANY WAWWANTY; without even the impwied wawwanty of
- * MEWCHANTABIWITY ow FITNESS FOW A PAWTICUWAW PUWPOSE. See the GNU
- * Wessew genewaw pubwic wicense fow mowe detaiws.
- *
- * Cweated by Virdi Gunawan OwO
- * Maiw tuwu: virdigunawann@gmail.com
- */
-
-class Viewer
+class LogViewer
 {
     /**
      * Path file logs
      * 
      * @return string
      */
-    private $path;
+    private $path = LOG_PATH;
 
     /**
      * Log file name
@@ -47,13 +26,10 @@ class Viewer
      * 
      * @return string
      */
-    private $ext;
+    private $ext = 'log';
 
     public function __construct()
     {
-        $this->path = $this->setPath(LOG_PATH . DIRECTORY_SEPARATOR);
-        $this->name = $this->setName($this->getPath() . 'log-' . date('Y-m-d'));
-        $this->ext = $this->setExt('log');
     }
 
     /**
